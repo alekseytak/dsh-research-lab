@@ -1,0 +1,1 @@
+The result of 17 * 23 is 391.
