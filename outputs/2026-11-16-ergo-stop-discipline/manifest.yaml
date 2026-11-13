@@ -1,0 +1,37 @@
+project: dsh-research-lab
+study: 2026-11-16-ergo-stop-discipline
+hypothesis_id: ERGO-P-V3-01
+status: live_run_valid_hypothesis_refuted
+publication_status: internal
+model: deepseek-v4.1-flash
+provider: oneprovider
+cells: 24
+repeats: 3
+seed: none_deterministic_greedy_sampling
+round_cap: 20
+transport_losses: 0
+primary_endpoint:
+  name: stoppedBeforeCap
+  delta: -0.333
+  delta_min: 0.5
+  verdict: refuted
+pilot:
+  model: glm-5.3-flash
+  baseline: 0.333
+  delta: 0.667
+  role: threshold_calibration_only
+controls:
+  stop_metric: 8/8
+  loop_metric: 12/12
+  oracle: 7/7
+commands:
+  - node code/stop-controls.mjs && node code/metric-controls.mjs && node code/oracle-controls.mjs
+  - ./code/run-confirm.sh deepseek-v4.1-flash
+preregistration_sha256: d2f66b70a775043d844e9513bad01e572da8f07d0de69fe33e92f8b897dfcb5b
+raw_inputs:
+  - ../2026-11-14-ergo-benchmark-v2/artifacts/glm-5.3-flash/ (пилот, только калибровка порога)
+  - ~/.agents/skills/ergo-break-the-loop/SKILL.md (текст скилла под тестом)
+outputs:
+  - results.md
+  - artifacts/deepseek-v4.1-flash/sandwiches.jsonl
+  - artifacts/deepseek-v4.1-flash/*.json
