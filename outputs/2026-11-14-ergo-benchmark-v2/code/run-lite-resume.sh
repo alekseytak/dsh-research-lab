@@ -1,0 +1,20 @@
+#!/bin/bash
+set -euo pipefail
+MODEL="${1:-qwen-3.8-27b:free}"
+ARM="${2:-both}"; TASK="${3:-all}"
+STUDY="$(cd "$(dirname "$0")/.." && pwd)"
+KEY=$(python3 -c "
+import re,pathlib
+t=pathlib.Path.home().joinpath('.dsh/.credentials.yaml').read_text()
+m=re.search(r'^LITEROUTER_API_KEY:\s*(\S+)', t, re.M)
+print(m.group(1).strip('\"\'') if m else '')
+")
+export BENCH_MODEL="$MODEL"
+export BENCH_BASE_URL="https://api.literouter.com/v1/chat/completions"
+export BENCH_API_KEY="$KEY"
+export BENCH_MIN_INTERVAL_MS="${BENCH_MIN_INTERVAL_MS:-8000}"
+export BENCH_REPEATS=3 BENCH_ROUNDS=20 BENCH_PAUSE=500
+export BENCH_SKIP_DONE=1
+export BENCH_ROOT="$STUDY/artifacts/$(echo "$MODEL" | tr '/:' '__')"
+cd "$(dirname "$0")"
+exec node run-bench.mjs "$ARM" "$TASK"

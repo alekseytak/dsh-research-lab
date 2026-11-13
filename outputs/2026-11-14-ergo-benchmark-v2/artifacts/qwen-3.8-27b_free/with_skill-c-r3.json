@@ -1,0 +1,16 @@
+{
+  "arm": "with_skill",
+  "task": "c",
+  "cellName": "with_skill-c-r3",
+  "replica": 2,
+  "label": "hash chain with a misleading failure story",
+  "model": "qwen-3.8-27b:free",
+  "cellDir": "/Users/kovganovaekaterirna/DSH-Research-Lab/outputs/2026-11-14-ergo-benchmark-v2/artifacts/qwen-3.8-27b_free/with_skill-c-r3",
+  "runNote": "transport after 4 attempts: HTTP 403: {\"error\":\"[LiteRouter] Hourly rate limit exceeded for free models. Please try again in a few minutes.\"}; final answer request failed: HTTP 403: {\"error\":\"[LiteRouter] Hourly rate limit exceeded for free models. Please try again in a few minutes.\"}",
+  "finalMessage": "",
+  "denied": 0,
+  "exactRepeats": 0,
+  "solved": false,
+  "note": "solve.mjs was never written",
+  "calls": []
+}

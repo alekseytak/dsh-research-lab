@@ -1,5 +1,5 @@
 project: Бенчмарк скилла ergo-break-the-loop, версия 2
-status: preregistered_no_live_run
+status: live_run_void_quota_losses
 raw_inputs:
   - ~/.agents/skills/ergo-break-the-loop/SKILL.md
   - library/ergo/canon.md
@@ -10,7 +10,8 @@ seed: 0 (temperature 0, детерминированный парный диза
 commands:
   - node code/metric-controls.mjs
   - node code/oracle-controls.mjs
-  - BENCH_MODEL=<модель> BENCH_REPEATS=3 BENCH_ROUNDS=20 node code/run-bench.mjs both all
+  - BENCH_MODEL=qwen-3.8-27b:free BENCH_REPEATS=3 node code/run-bench.mjs both all (провайдер LiteRouter)
+  - BENCH_MODEL=cohere/north-mini-code:free BENCH_REPEATS=3 node code/run-bench.mjs both d (провайдер OpenRouter)
 outputs:
   - code/run-bench.mjs
   - code/loop-metric.mjs

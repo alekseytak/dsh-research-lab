@@ -328,7 +328,13 @@ async function runTool(call, cellDir, profilePath) {
     }
   }
   return new Promise(resolve => {
-    const child = spawn('/usr/bin/sandbox-exec', ['-f', profilePath, '/bin/bash', '-c', call.command], { cwd: cellDir })
+    // Окружение дочернего процесса вычищается. Раннер держит ключ провайдера в
+    // своей памяти, но передавать его в песочницу нельзя: модель выполнила `env`,
+    // увидела BENCH_API_KEY и записала ключ в трассу. Утечка найдена детектором
+    // секретов `validate-workspace.mjs` на прогоне 2026-11-14. Ключ провайдера
+    // нужен только внутри `fetch`, то есть в этом процессе, а не в bash.
+    const childEnv = { PATH: process.env.PATH ?? '/usr/bin:/bin', HOME: cellDir, TMPDIR: '/tmp', LANG: 'en_US.UTF-8' }
+    const child = spawn('/usr/bin/sandbox-exec', ['-f', profilePath, '/bin/bash', '-c', call.command], { cwd: cellDir, env: childEnv })
     let output = ''
     child.stdout.on('data', chunk => { output += chunk })
     child.stderr.on('data', chunk => { output += chunk })
@@ -515,15 +521,40 @@ function readSummary() {
     return []
   }
 }
+// Докрутка без перезаписи. Раньше повторный запуск дописывал нулевые ячейки в
+// журнал и затирал уже собранные, из-за чего журнал перестал соответствовать
+// трассам. BENCH_SKIP_DONE=1 пропускает ячейку, у которой есть трасса без
+// транспортной ошибки; BENCH_REPLICAS=2,3 ограничивает номера повторов.
+const SKIP_DONE = process.env.BENCH_SKIP_DONE === '1'
+const REPLICA_FILTER = process.env.BENCH_REPLICAS
+  ? new Set(process.env.BENCH_REPLICAS.split(',').map(n => Number(n.trim()) - 1))
+  : null
+function cellAlreadyDone(cellName) {
+  try {
+    const trace = JSON.parse(readFileSync(join(ROOT, `${cellName}.json`), 'utf8'))
+    if (!trace || !Array.isArray(trace.calls)) return false
+    if (/transport|rate limit|HTTP 4|HTTP 5/i.test(trace.runNote ?? '')) return false
+    return trace.calls.length > 0
+  } catch {
+    return false
+  }
+}
+
 for (const arm of arms) {
   for (const task of tasks) {
     for (let replica = 0; replica < REPEATS; replica += 1) {
+    if (REPLICA_FILTER && !REPLICA_FILTER.has(replica)) continue
+    const pendingName = replica === 0 ? `${arm}-${task}` : `${arm}-${task}-r${replica + 1}`
+    if (SKIP_DONE && cellAlreadyDone(pendingName)) {
+      console.log(`-- ${pendingName}: уже собрана, пропуск`)
+      continue
+    }
     console.log(`== ${arm} / ${task} (${TASKS[task].label}) повтор ${replica + 1} из ${REPEATS} ==`)
     const record = await runCell(arm, task, replica)
     const line = logCell(record)
     writeFileSync(summaryPath, `${JSON.stringify(mergeCellSummary(readSummary(), line), null, 2)}\n`)
     console.log(`   rounds=${line.rounds} calls=${line.toolCalls} revisits=${line.revisits} loop_ratio=${line.loopRatio}`)
-    console.log(`   denied=${line.denied} exactRepeats=${line.exactRepeats} solved=${line.solved} note=${line.note}`)
+    console.log(`   denied=${line.denied} exactRepeats=${line.exactRepeats} solved=${line.solved} outcome=${line.outcome}`)
     writeFileSync(join(ROOT, `${record.cellName}.json`), `${JSON.stringify(record, null, 2)}\n`)
     }
   }
