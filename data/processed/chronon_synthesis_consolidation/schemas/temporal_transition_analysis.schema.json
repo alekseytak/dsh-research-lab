@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Temporal Transition Analysis v1",
+  "type": "object",
+  "required": [
+    "definition_id",
+    "status",
+    "source_signal",
+    "kerg",
+    "transition_type",
+    "policy_eligible"
+  ],
+  "properties": {
+    "definition_id": {
+      "const": "kem.temporal-regime-deviation.kerg.v1"
+    },
+    "status": {
+      "enum": [
+        "MEASURED",
+        "SIMULATED",
+        "UNAVAILABLE",
+        "HYPOTHETICAL"
+      ]
+    },
+    "source_signal": {
+      "type": "string"
+    },
+    "sampling_rate_hz": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "kerg_raw": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "kerg": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "exclusiveMaximum": 1
+    },
+    "temporal_coherence": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "recurrence_score": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "dominant_lag_samples": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "dominant_period_seconds": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "exclusiveMinimum": 0
+    },
+    "transition_type": {
+      "enum": [
+        "REFERENCE_COMPATIBLE",
+        "TRANSIENT_REGIME_SHIFT",
+        "FIXED_POINT_HOLD",
+        "PERIODIC_LOOP",
+        "METASTABLE_TRAP",
+        "CHAOTIC_DISPERSION",
+        "INSUFFICIENT_DATA"
+      ]
+    },
+    "policy_eligible": {
+      "const": false
+    },
+    "clinical_eligible": {
+      "const": false
+    },
+    "intervention_eligible": {
+      "const": false
+    }
+  }
+}

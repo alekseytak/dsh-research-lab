@@ -1,0 +1,20 @@
+project: chronon-kerg-canonization
+status: CODE_FIXED_AUDIT_PARTIAL
+raw_inputs:
+  - data/raw/chronon-synthesis-consolidation.tar.gz
+  - "SHA-256: 1d09720362afca1cf16cf338f9f154bfeb838c35229b12d27e36a69e24cf9b65"
+  - "распаковано в: data/processed/chronon_synthesis_consolidation/"
+seed: "нет собственного seed; тесты используют фиксированные seed 11-15 в numpy.default_rng"
+commands:
+  - "python3 -m pytest test_kerg_temporal.py -q   # на оригинале: 4 failed, 8 passed"
+  - "python3 -m pytest test_kerg_temporal.py -q   # после правок: 17 passed"
+  - "мутационная проверка: M1/M2/M3 (аудит воспроизвёл независимо) и M7-M10 (после аудита) -> каждый мутант даёт 1 failed"
+  - "node scripts/validate-workspace.mjs ."
+outputs:
+  - code/kerg_temporal.py
+  - code/kerg_temporal.original.py
+  - code/test_kerg_temporal.py
+  - code/DERIVATION.md
+  - audit-report.md
+  - audit-report-independent.md
+publication_status: not_for_publication_without_explicit_confirmation

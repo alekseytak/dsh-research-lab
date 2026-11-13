@@ -1,0 +1,15 @@
+project: Поведенческий бенчмарк протокола ergo-break-the-loop
+status: running
+raw_inputs:
+  - личные материалы Алексея по сеттингу DeCogerenc в базе знаний DSH (метрика эргодичности)
+  - ~/.agents/skills/ergo-break-the-loop/SKILL.md (проверяемый артефакт)
+  - ~/.dsh/settings.yaml, блок провайдера openrouter
+  - https://openrouter.ai/api/v1/models (живой каталог моделей)
+seed: none (детерминированный парный эксперимент, температура 0)
+commands:
+  - node outputs/2026-09-14-ergo-benchmark/bench/run-bench.mjs both all
+outputs:
+  - bench/run-bench.mjs
+  - work/sandwiches.jsonl
+  - results.md
+publication_status: internal

@@ -1,0 +1,14 @@
+{
+  "arm": "with_skill",
+  "task": "c",
+  "label": "hash chain with a misleading failure story",
+  "model": "nex-agi/nex-n2.5-pro:free",
+  "cellDir": "/Users/kovganovaekaterirna/DSH-Research-Lab/outputs/2026-09-14-ergo-benchmark/work/with_skill-c",
+  "runNote": "transport after 4 attempts: HTTP 429: {\"error\":{\"message\":\"Rate limit exceeded: free-models-per-day. Add 2 credits to unlock 1000 free model requests per day\",\"code\":429,\"metadata\":{\"headers\":{\"X-RateLimit-Limit\":\"50\",\"X-RateLimit-Remaining\":\"0\",\"X-RateLimit-Reset\":\"1789430400000\"},\"limit_source\":\"openrouter_free_tier_daily\",\"remedy_hint\":\"Wait for the daily reset (see X-RateLimit-Reset), or purchase credits to raise your free-model d",
+  "finalMessage": "",
+  "denied": 0,
+  "exactRepeats": 0,
+  "solved": false,
+  "note": "solve.mjs was never written",
+  "calls": []
+}

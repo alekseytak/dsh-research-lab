@@ -1,0 +1,11 @@
+{
+  "name": "dsh-research-lab-bundle",
+  "version": "0.1.0",
+  "description": "Evidence-first reproducible research workspace bundle for DeepSeek Harness",
+  "type": "module",
+  "main": "index.js",
+  "files": ["index.js", "cordis.patch.yml", "README.md", "LICENSE"],
+  "license": "MIT",
+  "publishConfig": { "access": "public" },
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }
+}

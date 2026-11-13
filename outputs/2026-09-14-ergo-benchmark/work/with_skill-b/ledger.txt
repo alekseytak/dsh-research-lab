@@ -1,0 +1,8 @@
+| # | Action | Target | Premise | World | Result | New fact |
+|---|---|---|---|---|---|---|
+| 1 | derive | normalized text: 17 * 23 | The task asks for one observable product. | pending | Plan: use bc, write answer.txt, then verify. | The delivery observable is the one-line content of answer.txt. |
+| 2 | run | /usr/bin/bc | bc output is authoritative for this expression. | exit 0; output 391 | Obtained 391. | The authoritative product is 391. |
+| 3 | write | answer.txt | The file must contain exactly one line with the product. | size=4; mtime=1789398078 | Wrote 391 and a newline. | answer.txt is the delivery artifact. |
+| 4 | derive | acceptance criterion | Environment frame change: move from reasoning to the authoritative command. | answer.txt size=4 | Outcome: bc produced 391. | Frame change 1 outcome recorded. |
+| 5 | derive | delivery level | Level frame change: move from the product to the file content. | answer.txt size=4 | Outcome: answer.txt now carries the product. | Frame change 2 outcome recorded. |
+| 6 | write | ledger.txt | Stop requires a durable six-row ledger with World and a falsification owner. | ledger.txt pending | Wrote this ledger. | Observation: cat answer.txt returning anything other than 391 would falsify delivery; owner: agent. |

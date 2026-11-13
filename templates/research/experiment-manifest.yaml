@@ -1,0 +1,37 @@
+# Канонический манифест эксперимента. Заполни до запуска и не меняй задним числом.
+experiment_id: <stable-id>
+created_at: <YYYY-MM-DD>
+status: draft # draft | planned | running | complete | blocked
+question: <question>
+hypothesis: <falsifiable hypothesis>
+decision_rule: <pre-registered rule for accepting or rejecting the hypothesis>
+baseline:
+  dsh_version: <version>
+  profile: <profile>
+  agent_preset: <preset>
+  model: <provider/model>
+dataset:
+  id: <dataset-id>
+  version: <version>
+  digest: <sha256>
+budget:
+  max_tokens: <integer>
+  max_tool_calls: <integer>
+  timeout_seconds: <integer>
+  repetitions: <integer>
+metrics:
+  - task-success
+  - latency-ms
+  - input-tokens
+  - output-tokens
+  - tool-calls
+  - estimated-cost
+base_seed: <integer>
+seed_policy: base-plus-variant-index
+runtime_ids: []
+claims_boundary:
+  executable: true
+  blockers: []
+results: []
+artifacts: []
+notes: []

@@ -1,0 +1,69 @@
+=== модель deepseek-v4-flash:free ===
+  --- no_skill/a ---
+       denied=2 exactRepeats=0 solved=false note=undefined
+    
+    model=deepseek-v4-flash:free arm=no_skill task=a
+  --- no_skill/b ---
+       denied=0 exactRepeats=0 solved=true note=undefined
+    
+    model=deepseek-v4-flash:free arm=no_skill task=b
+  --- no_skill/c ---
+       denied=0 exactRepeats=0 solved=true note=undefined
+    
+    model=deepseek-v4-flash:free arm=no_skill task=c
+  --- no_skill/d ---
+       denied=0 exactRepeats=0 solved=false note=undefined
+    
+    model=deepseek-v4-flash:free arm=no_skill task=d
+  --- with_skill/a ---
+       denied=1 exactRepeats=0 solved=false note=undefined
+    
+    model=deepseek-v4-flash:free arm=with_skill task=a
+  --- with_skill/b ---
+       denied=0 exactRepeats=0 solved=true note=undefined
+    
+    model=deepseek-v4-flash:free arm=with_skill task=b
+  --- with_skill/c ---
+       denied=0 exactRepeats=0 solved=true note=undefined
+    
+    model=deepseek-v4-flash:free arm=with_skill task=c
+  --- with_skill/d ---
+       denied=0 exactRepeats=0 solved=false note=undefined
+    
+    model=deepseek-v4-flash:free arm=with_skill task=d
+=== модель qwen3.8-27b:free ===
+  --- no_skill/a ---
+       denied=2 exactRepeats=0 solved=false note=undefined
+    
+    model=qwen3.8-27b:free arm=no_skill task=a
+  --- no_skill/b ---
+       denied=0 exactRepeats=0 solved=true note=undefined
+    
+    model=qwen3.8-27b:free arm=no_skill task=b
+  --- no_skill/c ---
+       denied=0 exactRepeats=0 solved=true note=undefined
+    
+    model=qwen3.8-27b:free arm=no_skill task=c
+  --- no_skill/d ---
+       denied=1 exactRepeats=3 solved=false note=undefined
+    
+    model=qwen3.8-27b:free arm=no_skill task=d
+  --- with_skill/a ---
+       denied=2 exactRepeats=3 solved=false note=undefined
+    
+    model=qwen3.8-27b:free arm=with_skill task=a
+  --- with_skill/b ---
+       denied=0 exactRepeats=0 solved=true note=undefined
+    
+    model=qwen3.8-27b:free arm=with_skill task=b
+  --- with_skill/c ---
+       denied=0 exactRepeats=0 solved=true note=undefined
+    
+    model=qwen3.8-27b:free arm=with_skill task=c
+  --- with_skill/d ---
+       denied=2 exactRepeats=0 solved=false note=undefined
+    
+    model=qwen3.8-27b:free arm=with_skill task=d
+
+выполнено: 16 | пропущено: 0 | падений: 0
+ячеек в журнале:       16

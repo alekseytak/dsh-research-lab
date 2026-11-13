@@ -1,0 +1,10 @@
+(version 1)
+(allow default)
+(deny file-write*)
+(allow file-write*
+  (subpath "/Users/kovganovaekaterirna/DSH-Research-Lab/outputs/2026-09-19-ergo-benchmark-confirmatory/artifacts/qwen3.8-27b:free/with_skill-c")
+  (subpath "/private/var/folders")
+  (literal "/dev/null")
+  (literal "/dev/stdout")
+  (literal "/dev/stderr")
+  (literal "/dev/dtracehelper"))

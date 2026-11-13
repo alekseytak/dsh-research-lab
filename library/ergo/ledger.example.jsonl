@@ -1,0 +1,10 @@
+# Move ledger from the sandbox-permission loop of 2026-09-14.
+# Ten moves against one wall, with cosmetic variation and no world movement.
+{"action":"write","target":"plugin/dsh-research-lab-bundle/package.json","premise":"a write tool call succeeds under danger-full-access","world":"policy=danger-full-access","fact":null}
+{"action":"write","target":"plugin/dsh-research-lab-bundle/package.json","premise":"a write tool call succeeds under danger-full-access","world":"policy=danger-full-access","fact":null}
+{"action":"write","target":"plugin/dsh-research-lab-bundle/README.md","premise":"a write tool call succeeds under danger-full-access","world":"policy=danger-full-access","fact":null}
+{"action":"run","target":"bash probe","premise":"escalation to danger-full-access is accepted","world":"policy=danger-full-access","fact":"escalation is rejected as not strictly wider than the current mode"}
+{"action":"run","target":"bash probe","premise":"escalation to workspace-write is accepted","world":"policy=danger-full-access","fact":null}
+{"action":"run","target":"bash mkdir","premise":"the command runs before the escalation check","world":"policy=danger-full-access","fact":null,"order":true}
+{"action":"derive","target":"read the escalation source in the harness checkout","premise":"the refusal comes from the wideR-modes table","world":"policy=danger-full-access","fact":"activeEscalation compares requested against effective mode, so an equal mode is refused"}
+{"action":"ask","target":"human: which permission mode should the session run under","premise":"only the human can change the session policy","world":"policy=changed to never","fact":"with approval never, bash, write and edit all succeed","pending":true}

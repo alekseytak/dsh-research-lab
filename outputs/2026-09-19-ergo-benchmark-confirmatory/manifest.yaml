@@ -1,0 +1,92 @@
+# manifest.yaml — машинночитаемые метаданные исследования
+#
+# ИСПРАВЛЕНО 2026-09-21 после независимого аудита: прежняя версия описывала
+# ПЛАНОВЫЙ прогон (провайдер claude-n-codex, модели gpt-5.5/gpt-5.6-sol,
+# `deviations: none`, `status: preregistered`), а не тот, который состоялся.
+# Фактический прогон: провайдер LiteRouter, две бесплатные модели, 16/16 ячеек.
+# Ошибка была в слое происхождения, а не в данных: артефакты всё это время верные.
+
+project: ergo-break-the-loop — подтверждающий парный бенчмарк
+status: complete               # preregistered | running | complete | incomplete
+result: 16/16 ячеек собрано, 0 сбоев
+
+kind: confirmatory             # confirmatory | exploratory
+
+preregistration:
+  file: PREREGISTRATION.md
+  hash_file: PREREGISTRATION.sha256
+  frozen_at_utc: 2026-09-19T14:42:00Z
+  hash_sha256: 318408669a3f5f5e874028f25704570036623d1047c8a4b1f562607dff29ee5c
+  deviations: D1–D7, записаны ДО анализа (см. methods.md)
+
+raw_inputs:
+  - code/run-bench.mjs                  # раннер; определяет задачи, метрики, песочницу
+  - PREREGISTRATION.md                  # замороженное решение до данных
+  - ~/.agents/skills/ergo-break-the-loop/SKILL.md   # протокол под проверкой (текст в системном сообщении)
+  - LITEROUTER_API_KEY                  # доступ; значение в каталоге не хранится
+
+seed: none                     # temperature=0; параметр seed провайдеру не передаётся,
+                               # поэтому детерминизм НЕ гарантирован (см. limitations.md)
+
+parameters:
+  temperature: 0
+  bench_rounds: 14             # тот же горизонт обеих рук, что и в пилоте — для сопоставимости
+  bench_min_interval_ms: 7500  # пейсинг под лимит LiteRouter (отклонение D6), задан в run-free.sh
+  sandbox: sandbox-exec        # macOS-only; отказ настоящий (EPERM), не текстовая инструкция
+  tools: [read, bash]          # ровно два, нативный вызов по JSON-схеме
+
+commands:
+  - cd code && ./run-free.sh                                   # фактический прогон, все ячейки
+  - cd code && node derive-loop-metric.mjs                     # производные метрики в трассы, со сверкой с журналом
+  - cd code && node repair-summary.mjs                         # пересборка сводок из журнала
+  - cd code && node test-summary-store.mjs                     # тесты агрегации сводок
+  - node scripts/validate-workspace.mjs .
+  - shasum -a 256 PREREGISTRATION.md
+  - shasum -a 256 artifacts/sandwiches.jsonl
+
+outputs:
+  - artifacts/                 # трассы ячеек <рука>-<задача>.json + журнал sandwiches.jsonl
+  - artifacts/<модель>/summary-<модель>.json   # 8 записей на модель
+  - artifacts/driver.log, artifacts/run-<модель>.log
+  - code/derive-loop-metric.mjs, code/summary-store.mjs, code/repair-summary.mjs
+  - results.md                 # факты, результаты, интерпретация
+  - audit-report.md            # аудит автора (не заменяет независимый)
+  - audit-report-independent.md  # независимый аудит, вердикт «ПОДТВЕРЖДЕНО ЧАСТИЧНО»
+
+models:
+  # ЗАПЛАНИРОВАНО в preregistration: openrouter, бесплатные модели, лимит 50 запросов/сутки.
+  # Фактически использовано (отклонения D5–D7):
+  provider: literouter
+  endpoint: https://api.literouter.com/v1/chat/completions
+  included:
+    - deepseek-v4-flash:free     # 8 ячеек
+    - qwen3.8-27b:free           # 8 ячеек
+  free: true                     # бесплатный тариф; 42 модели с model_cost = 0
+  rate_limit: одно сообщение в 7 секунд на аккаунт
+  tool_calling_verified: true    # проверено фактически: finish_reason = tool_calls
+  system_prompt_injected: false  # prompt_tokens 43–278 против 5756 у платного прокси
+  replacement_policy: >-
+    Модель, фактически не вызывающая инструменты, заменяется; замена фиксируется в
+    methods.md как отклонение от preregistration ДО анализа.
+
+deviations:                      # все записаны ДО анализа, см. methods.md
+  - id: D1
+    what: провайдер openrouter -> claude-n-codex (ключ OPENROUTER_API_KEY невалиден)
+  - id: D2
+    what: модели оказались не бесплатными (gpt-5.5, gpt-5.6-sol)
+  - id: D3
+    what: раннер — BASE_URL/API_KEY вынесены в env
+  - id: D4
+    what: дневной лимит 50 запросов не действует
+  - id: D5
+    what: провайдер claude-n-codex -> LiteRouter (бесплатный тариф) — возврат к исходной premise «бесплатные модели»
+  - id: D6
+    what: лимит 50/сутки -> одно сообщение в 7 секунд на аккаунт; в раннер добавлен пейсинг, иначе ячейка записала бы выдуманный сбой вместо поведения модели
+  - id: D7
+    what: модели gpt-5.5 + gpt-5.6-sol -> deepseek-v4-flash:free + qwen3.8-27b:free
+
+deviations_note: >-
+  D5–D7 записаны 2026-09-20, до любых вычислений по результатам. Ни одно отклонение
+  не затрагивает критерий опровержения и критерий готовности из PREREGISTRATION.md.
+
+publication_status: internal   # наружу не публикуется без явного подтверждения Алексея

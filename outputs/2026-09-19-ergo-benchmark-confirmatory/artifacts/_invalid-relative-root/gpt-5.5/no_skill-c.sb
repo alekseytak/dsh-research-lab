@@ -1,0 +1,10 @@
+(version 1)
+(allow default)
+(deny file-write*)
+(allow file-write*
+  (subpath "../artifacts/gpt-5.5/no_skill-c")
+  (subpath "/private/var/folders")
+  (literal "/dev/null")
+  (literal "/dev/stdout")
+  (literal "/dev/stderr")
+  (literal "/dev/dtracehelper"))

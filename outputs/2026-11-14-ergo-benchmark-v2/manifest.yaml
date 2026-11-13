@@ -1,0 +1,20 @@
+project: Бенчмарк скилла ergo-break-the-loop, версия 2
+status: preregistered_no_live_run
+raw_inputs:
+  - ~/.agents/skills/ergo-break-the-loop/SKILL.md
+  - library/ergo/canon.md
+  - ~/ГЛАВНАЯ ПАПКА/КАНОН_ATQEC/ATQEC — Kerg.md
+  - ~/ГЛАВНАЯ ПАПКА/КАНОН_ATQEC/ATQEC — Паспорт предсказания.md
+  - ~/ГЛАВНАЯ ПАПКА/УРОКИ_И_ГРАБЛИ.md
+seed: 0 (temperature 0, детерминированный парный дизайн, BENCH_REPEATS=3)
+commands:
+  - node code/metric-controls.mjs
+  - node code/oracle-controls.mjs
+  - BENCH_MODEL=<модель> BENCH_REPEATS=3 BENCH_ROUNDS=20 node code/run-bench.mjs both all
+outputs:
+  - code/run-bench.mjs
+  - code/loop-metric.mjs
+  - code/oracle.mjs
+  - PREREGISTRATION.md
+  - results.md
+publication_status: internal

@@ -1,0 +1,13 @@
+project: <topic>
+created_at: <YYYY-MM-DD>
+status: draft
+question: <question>
+hypothesis: <hypothesis>
+raw_inputs: []
+scripts: []
+environment: <runtime and dependency versions>
+seed: <seed or null>
+commands: []
+outputs: []
+audit: pending
+publication_status: internal_only

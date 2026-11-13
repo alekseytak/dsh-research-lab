@@ -1,0 +1,12 @@
+# Ключи и локальные секреты не коммитятся
+.credentials*
+*.key
+*.pem
+.env
+.env.*
+
+# Служебное
+.DS_Store
+node_modules/
+__pycache__/
+*.pyc
