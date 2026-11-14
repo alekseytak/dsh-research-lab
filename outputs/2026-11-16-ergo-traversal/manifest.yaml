@@ -1,0 +1,30 @@
+project: dsh-research-lab
+study: 2026-11-16-ergo-traversal
+hypothesis_id: ERGO-P-V5-01
+status: hypothesis_unmeasured_task_did_not_discriminate
+publication_status: internal
+model: glm-5.3-flash
+provider: oneprovider
+cells: 2
+repeats: 1
+round_cap: 20
+fixture_states: 200
+seed: none_deterministic_greedy_sampling
+transport_losses: 0
+primary_endpoint:
+  name: traversalRatio
+  observed: 0.005
+  verdict: not_measured
+controls:
+  traversal: 10/10
+raw_inputs:
+  - ../2026-11-14-ergo-benchmark-v2/artifacts/glm-5.3-flash/
+  - ../2026-11-16-ergo-stop-discipline/artifacts/deepseek-v4.1-flash/
+  - ~/документы /TemporalTransitionMetrics-v1.0.0-and-mapping.md
+  - ~/документы /🔄Os глаголы и лупы .md
+outputs:
+  - results.md
+  - artifacts/glm-5.3-flash/sandwiches.jsonl
+commands:
+  - node code/traversal-controls.mjs
+  - ./code/run-v5.sh glm-5.3-flash both e
