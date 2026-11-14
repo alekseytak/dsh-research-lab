@@ -2,6 +2,10 @@
 
 Workspace для научных изысканий в DeepSeek Harness.
 
+## Устройство проекта
+
+Главный документ: `SPEC.md` — что куда кладётся и как должно работать. Контроллер лупов: `library/ergo/zaloop.md`.
+
 ## Старт
 
 1. Открой `/Users/kovganovaekaterirna/DSH-Research-Lab` как workspace.
