@@ -1,0 +1,64 @@
+Отпечаток muha (verb|domain|object) на прошлых трассах
+
+{study:<24}{задача:<8}{рука:<12}{ходов:>7}{уник:>6}{повторы:>9}{цикл:>7}{период:>8}
+--------------------------------------------------------------------------
+v2 glm-5.3-flash        a       no_skill          2     2        0  false       0
+v2 glm-5.3-flash        a       no_skill         13    12   0.0769  false       0
+v2 glm-5.3-flash        a       no_skill          2     2        0  false       0
+v2 glm-5.3-flash        b       no_skill          6     5   0.1667  false       0
+v2 glm-5.3-flash        b       no_skill          1     1        0  false       0
+v2 glm-5.3-flash        b       no_skill          4     3     0.25   true       1
+v2 glm-5.3-flash        c       no_skill          2     2        0  false       0
+v2 glm-5.3-flash        c       no_skill          2     2        0  false       0
+v2 glm-5.3-flash        c       no_skill          4     2      0.5   true       1
+v2 glm-5.3-flash        d       no_skill          5     4      0.2  false       0
+v2 glm-5.3-flash        d       no_skill         20    10      0.5  false       0
+v2 glm-5.3-flash        d       no_skill         20    11     0.45   true       1
+v2 glm-5.3-flash        a       with_skill        5     5        0  false       0
+v2 glm-5.3-flash        b       with_skill        4     4        0  false       0
+v2 glm-5.3-flash        b       with_skill        0     0        0  false       0
+v2 glm-5.3-flash        b       with_skill        4     3     0.25  false       0
+v2 glm-5.3-flash        c       with_skill        3     3        0  false       0
+v2 glm-5.3-flash        c       with_skill        2     2        0  false       0
+v2 glm-5.3-flash        d       with_skill        3     2   0.3333   true       1
+v2 glm-5.3-flash        d       with_skill        2     2        0  false       0
+v2 glm-5.3-flash        d       with_skill        2     2        0  false       0
+v3 deepseek-v4.1-flash  a       no_skill          5     4      0.2  false       0
+v3 deepseek-v4.1-flash  a       no_skill          3     1   0.6667   true       1
+v3 deepseek-v4.1-flash  a       no_skill          5     4      0.2  false       0
+v3 deepseek-v4.1-flash  b       no_skill          2     2        0  false       0
+v3 deepseek-v4.1-flash  b       no_skill          4     4        0  false       0
+v3 deepseek-v4.1-flash  b       no_skill          3     3        0  false       0
+v3 deepseek-v4.1-flash  c       no_skill          6     3      0.5  false       0
+v3 deepseek-v4.1-flash  c       no_skill          7     3   0.5714   true       1
+v3 deepseek-v4.1-flash  c       no_skill          5     4      0.2  false       0
+v3 deepseek-v4.1-flash  d       no_skill         18    12   0.3333  false       0
+v3 deepseek-v4.1-flash  d       no_skill         14     6   0.5714  false       0
+v3 deepseek-v4.1-flash  d       no_skill         18    16   0.1111  false       0
+v3 deepseek-v4.1-flash  a       with_skill        4     3     0.25  false       0
+v3 deepseek-v4.1-flash  a       with_skill        9     8   0.1111  false       0
+v3 deepseek-v4.1-flash  a       with_skill        7     7        0  false       0
+v3 deepseek-v4.1-flash  b       with_skill        4     3     0.25  false       0
+v3 deepseek-v4.1-flash  b       with_skill        4     4        0  false       0
+v3 deepseek-v4.1-flash  b       with_skill        3     3        0  false       0
+v3 deepseek-v4.1-flash  c       with_skill        4     3     0.25  false       0
+v3 deepseek-v4.1-flash  c       with_skill        4     2      0.5   true       2
+v3 deepseek-v4.1-flash  c       with_skill        5     3      0.4   true       1
+v3 deepseek-v4.1-flash  d       with_skill       15    10   0.3333  false       0
+v3 deepseek-v4.1-flash  d       with_skill       16    12     0.25  false       0
+v3 deepseek-v4.1-flash  d       with_skill       20    14      0.3   true       1
+v5 glm-5.3-flash        e       no_skill          3     3        0  false       0
+v5 glm-5.3-flash        e       with_skill        5     5        0  false       0
+
+=== Средняя доля повторов по паре (рука × задача) ===
+study                   {задача.padEnd(8)}{no_skill:>10}{with_skill:>12}{разница:>10}
+------------------------------------------------------------------
+v2 glm-5.3-flash        a            0.026       0.000    -0.026
+v2 glm-5.3-flash        b            0.139       0.083    -0.056
+v2 glm-5.3-flash        c            0.167       0.000    -0.167
+v2 glm-5.3-flash        d            0.383       0.111    -0.272
+v3 deepseek-v4.1-flash  a            0.356       0.120    -0.235
+v3 deepseek-v4.1-flash  b            0.000       0.083     0.083
+v3 deepseek-v4.1-flash  c            0.424       0.383    -0.040
+v3 deepseek-v4.1-flash  d            0.339       0.294    -0.044
+v5 glm-5.3-flash        e            0.000       0.000     0.000

@@ -1,0 +1,33 @@
+project: dsh-research-lab
+study: 2026-11-17-ergo-action-signature
+hypothesis_id: ERGO-P-V6-01
+status: exploratory_posthoc_not_confirmatory
+publication_status: internal
+model: glm-5.3-flash, deepseek-v4.1-flash
+provider: oneprovider (трассы прошлых прогонов)
+cells_reanalysed: 47
+seed: none_no_new_model_calls
+transport_losses: 0
+primary_endpoint:
+  name: repeatRatio
+  observed_difference_v2_d: -0.272
+  observed_difference_v3_d: -0.044
+  verdict: exploratory_only
+controls:
+  action_signature: 23/23
+borrowed_from:
+  project: muha
+  files:
+    - ~/muha/03-terminal-agent/core/autonomous.py:56 (signature)
+    - ~/muha/03-terminal-agent/core/autonomous.py:250-285 (тормоза цикла)
+    - ~/muha/03-terminal-agent/core/registry.py:41 (хеш-цепочка)
+  deviation: домен расширен на относительные пути; цикл детектируется до периода 4
+raw_inputs:
+  - ../2026-11-14-ergo-benchmark-v2/artifacts/glm-5.3-flash/
+  - ../2026-11-16-ergo-stop-discipline/artifacts/deepseek-v4.1-flash/
+  - ../2026-11-16-ergo-traversal/artifacts/glm-5.3-flash/
+outputs:
+  - results.md
+commands:
+  - node code/signature-controls.mjs
+  - node code/apply-to-traces.mjs
